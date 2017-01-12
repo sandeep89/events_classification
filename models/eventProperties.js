@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement: true
 		},
 		event_id: {
-
+			type: DataTypes.INTEGER.UNSIGNED
 		},
 		attribute_type: DataTypes.STRING,
 		name: DataTypes.STRING

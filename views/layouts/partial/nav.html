@@ -13,6 +13,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
+            <select class="selectpicker product-selector" title="Product">
+                {{#each products}}
+                    <option>{{this.name}}</option>
+                {{/each}}
+            </select>
             <li class="sidebar-search">
                 <a href="/">
                     <!--<img src="<?php echo site_url();?>assets/images/new-logo.png" height="35">-->
@@ -32,8 +37,9 @@
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="/user/profile"><i class="fa fa-user fa-fw"></i>Profile</a>
                     <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
-            </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
