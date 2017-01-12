@@ -1,11 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('Event', {
+	return sequelize.define('EventProperties', {
 		id: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		name: DataTypes.STRING,
-		product: DataTypes.STRING
+		event_id: {
+
+		},
+		attribute_type: DataTypes.STRING,
+		name: DataTypes.STRING
 	});
 };

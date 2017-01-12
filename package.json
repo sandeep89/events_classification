@@ -9,6 +9,7 @@
   "author": "budy k",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.1.4",
     "good": "^6.4.0",
     "good-console": "^5.1.0",
     "handlebars": "^4.0.3",
