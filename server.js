@@ -48,18 +48,16 @@ server.register(require('inert'), function(err) {
 
 
 /**
- * Register all Modules as Plugins Here
+ * Register all Modules eas Plugins Here
  * 
  */
 
 var plugins = [
 	
 	{ register : require('vision') }, //register Vision with others Plugins
-	{ register : require('./modules/employees/index.js') },
-	{ register : require('./modules/user-management/users/index.js') }	
+	{ register : require('./modules/events/index.js') }
 	
 ];
-
 
 /**
  * Routing Views
@@ -84,7 +82,11 @@ server.register(plugins, function (err) {
 	 */
     server.route({ method: 'GET', path: '/', handler: function(request, reply) {
 		
-		reply.view('home/home', {title : 'Home'});
+		var events = request.getDb(request)('events');
+				var event = events.getModel('Event');
+				event.findAll({raw: true}).then(function(rows){
+					reply.view('home/home', {title : 'Home', 'events':rows});
+				})
 		
 	} });
 });

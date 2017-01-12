@@ -1,5 +1,5 @@
 /**************************************************
- * Configuring Employees Plugins
+ * Configuring Events Plugins
  **************************************************/
 /**
  * Register Plugins
@@ -10,27 +10,35 @@ exports.register = function(server, options, next) {
 		
 		{
 			method : 'GET',
-			path : '/employees',
+			path : '/events',
 			handler : function(request, reply) {
-				console.log(request.getDb.toString());
 				var events = request.getDb(request)('events');
-				console.log(events.getModels())
 				var event = events.getModel('Event');
 				event.findAll({raw: true}).then(function(rows){
-					console.log(rows)
-					reply.view('employees/displayEmployees', {events:rows});
+					reply.view('events/displayEvents', {events:rows});
 				})
 			}
 		},
 		{
 			method : 'POST',
-			path : '/employees',
+			path : '/events',
 			handler : function(request, reply) {
 				
 			}
-		}
-		
-		
+		},
+		{
+			method : 'GET',
+			path : '/event/{eventId}',
+			handler : function(request, reply){
+				var events = request.getDb(request)('events');
+				var event = events.getModel('Event');
+				event.findById(request.params.eventId).then(function(event){
+					event = event.get({plain:true});
+					reply.view('events/displayEvents', {event:event});
+				})
+			}
+
+		}		
 		
 	]);
 	
@@ -43,6 +51,6 @@ exports.register = function(server, options, next) {
  */
 exports.register.attributes = {
 	
-	name : 'EmployeesModule',
+	name : 'EventsModule',
 	version : '1.0.0'	
 };
