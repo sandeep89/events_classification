@@ -14,8 +14,17 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <select class="selectpicker product-selector" title="Product">
+                {{#if noProductSelected}}
+                    <option selected><a href="/events?product=all"> All </a></option>
+                {{else}}
+                    <option href="/events?product=all" ><a href="/events?product=all"> All </a></option>
+                {{/if}}
                 {{#each products}}
-                    <option>{{this.name}}</option>
+                    {{#if this.selected}}
+                        <option href="/events?product={{this.id}}" selected><a href="/events?product=all">{{this.name}}</a></option>
+                    {{else}}
+                        <option href="/events?product={{this.id}}" ><a href="/events?product=all">{{this.name}}</option>
+                    {{/if}}
                 {{/each}}
             </select>
             <li class="sidebar-search">
