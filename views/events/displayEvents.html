@@ -1,8 +1,21 @@
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
-			 <div> {{event.name}} </div>
-			 <div> {{event.product}} </div>
-		</div>
+			 <div> <h2>{{event.name}} </h2></div>
+             <div style="float: left;" ><select class="selectpicker" title="Object">
+                    {{#each objects}}
+                        <option>{{this.name}}</option>
+                    {{/each}}
+            </select></div>
+            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Actor">
+                    <option> User </option>
+            </select></div>
+            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Action">
+                    {{#each actions}}
+                        <option>{{this.name}}</option>
+                    {{/each}}
+            </select></div>
+            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Platform">
+                    <option> Mobile </option>
+            </select></div>
 	</div>
 </div>

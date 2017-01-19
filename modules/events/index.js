@@ -18,7 +18,6 @@ exports.register = function(server, options, next) {
 				var product = events.getModel('Product');
 				var noProductSelected = false;
 				var query = {};
-				console.log(request.query.product)
 				if (request.query.product &&
 					request.query.product != 'all') {
 					query = {
@@ -41,7 +40,6 @@ exports.register = function(server, options, next) {
 						});
 					},
 					function(cb) {
-						console.log(query);
 						event.findAll({
 							where: query,
 							raw: true
@@ -82,6 +80,8 @@ exports.register = function(server, options, next) {
 				var events = request.getDb(request)('events');
 				var event = events.getModel('Event');
 				var product = events.getModel('Product');
+                var action = events.getModel('Action');
+                var object = events.getModel('Object');
 				async.parallel([
 					function(cb) {
 						product.findAll({
@@ -93,10 +93,24 @@ exports.register = function(server, options, next) {
 					function(cb) {
 						event.findAll({
 							raw: true
-						}).then(function(event) {
-							return cb(null, event);
+						}).then(function(events) {
+							return cb(null, events);
 						});
 					},
+                    function(cb) {
+                        action.findAll({
+                            raw: true
+                        }).then(function(actions) {
+                            return cb(null, actions);
+                        });
+                    },
+                    function(cb) {
+                        object.findAll({
+                            raw: true
+                        }).then(function(objects) {
+                            return cb(null, objects);
+                        });
+                    },
 					function(cb) {
 						event.findById(request.params.eventId).then(function(events) {
 							return cb(null, events)
@@ -107,7 +121,9 @@ exports.register = function(server, options, next) {
 					reply.view('events/displayEvents', {
 						products: result[0],
 						events: result[1],
-						event: result[2]
+                        actions: result[2],
+                        objects: result[3],
+						event: result[4]
 					});
 				});
 			}

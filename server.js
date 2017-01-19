@@ -10,7 +10,6 @@ var config = {
 		port: 3306,
 		dialect: 'mysql',
 		username: 'root',
-		password: 'password',
 		database: 'events'
 	}
 	/**
@@ -22,7 +21,7 @@ server.connection({
 });
 
 
-var sequelize = new Sequelize('events', 'root', 'password', {
+var sequelize = new Sequelize('events', 'root','', {
 	host: '127.0.0.1',
 	port: 3306,
 	dialect: 'mysql'
@@ -55,7 +54,7 @@ server.register(require('inert'), function(err) {
 
 /**
  * Register all Modules eas Plugins Here
- * 
+ *
  */
 
 var plugins = [
@@ -67,7 +66,11 @@ var plugins = [
 		register: require('./modules/events/index.js')
 	}, {
 		register: require('./modules/products/index.js')
-	}
+	}, {
+        register: require('./modules/actions/index.js')
+    }, {
+        register: require('./modules/objects/index.js')
+    }
 
 ];
 
@@ -126,7 +129,7 @@ server.register(plugins, function(err) {
 
 
 /**
- * running Http Node Server with Good Plugins for Logging  
+ * running Http Node Server with Good Plugins for Logging
  */
 server.register({
 
