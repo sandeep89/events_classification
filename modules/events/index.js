@@ -128,6 +128,31 @@ exports.register = function(server, options, next) {
 				});
 			}
 
+		},{
+			method: 'POST',
+			path: '/events/save',
+			handler: function(request, reply) {
+				console.log("here");
+				var events = request.getDb(request)('events');
+				var eventlist = events.getModel('EventList');
+				var eventData = request.payload;
+				console.log(eventData, eventlist);
+				if (eventData.object_name && eventData.platform_name && eventData.actor_name && eventData.action_name) {
+					console.log(eventData);
+					eventlist.create(eventData).then(function(eventlist) {
+						console.log()
+						eventlist.get({
+							plain: true
+						})
+						reply(eventlist)
+					}).catch(function(err){
+						console.log(err);
+						reply(err);
+					})
+				} else {
+					reply(new Error("Invalid Event data"))
+				}
+			}
 		}
 
 	]);

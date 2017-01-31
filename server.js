@@ -10,7 +10,8 @@ var config = {
 		port: 3306,
 		dialect: 'mysql',
 		username: 'root',
-		database: 'events'
+		database: 'events_classification',
+		passwrd: 'chowmean'
 	}
 	/**
 	 * Lets the server run on this Host and Port
@@ -21,7 +22,7 @@ server.connection({
 });
 
 
-var sequelize = new Sequelize('events', 'root','', {
+var sequelize = new Sequelize('events_classification', 'root','chowmean', {
 	host: '127.0.0.1',
 	port: 3306,
 	dialect: 'mysql'
