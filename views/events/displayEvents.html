@@ -1,21 +1,63 @@
 <div class="row">
 	<div class="col-lg-12">
-			 <div> <h2>{{event.name}} </h2></div>
-             <div style="float: left;" ><select class="selectpicker" title="Object">
+			 <div> <h2>{{event.name}}</h2></div>
+
+
+             <div style="float: left;" class="form-group"><select class="selectpicker" id="user" title="Object" name="">
                     {{#each objects}}
                         <option>{{this.name}}</option>
                     {{/each}}
             </select></div>
-            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Actor">
-                    <option> User </option>
-            </select></div>
-            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Action">
+            <div class="form-group" style="float: left;margin-left: 20px;">
+                <input class="form-control" id="actor" placeholder="Actor">
+            </div>
+            <div class="form-group" style="float: left;margin-left: 20px;"><select class="selectpicker" id="actions" title="Action">
                     {{#each actions}}
                         <option>{{this.name}}</option>
                     {{/each}}
             </select></div>
-            <div style="float: left;margin-left: 20px;"><select class="selectpicker" title="Platform">
-                    <option> Mobile </option>
-            </select></div>
+            <div  class="form-group" style="float: left;margin-left: 20px;">
+                <input class="form-control" id="platform" placeholder="Platform">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="context" style="float: left;margin-left: 0px;" placeholder="Context">
+            </div>
+            
 	</div>
+    <button  id="submit" class="btn-primary col-sm-2 col-sm-offset-5" style="margin-top: 40px;" onclick="sendValue()">Submit
+    </button>
+    
 </div>
+<script>
+
+function sendJson(user,actor,actions,platform,context) {
+        var formData = { "object_name": user, "actor_name": actor, "action_name":actions, 
+                         "platform_name":platform , "context":context
+                        };
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/events/save', true);
+        xhr.onload = function(e) { 
+            data=JSON.parse(this.responseText);
+            if(data.statusCode){
+                toastr.warning('Error Saving data. Make sure you filled all required fields.')
+            }
+            else{
+                toastr.success('Data saved.')
+            }
+         };
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify(formData));
+    }
+
+function sendValue(){
+    var user=document.getElementById('user').value;
+    var actor=document.getElementById('actor').value;
+    var actions=document.getElementById('actions').value;
+    var platform=document.getElementById('platform').value;
+    var context=document.getElementById('context').value;
+    sendJson(user, actor, actions, platform, context);
+}
+
+
+
+</script>
