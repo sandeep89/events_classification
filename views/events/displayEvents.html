@@ -20,8 +20,39 @@
                 <input class="form-control" id="platform" placeholder="Platform">
             </div>
             <div class="form-group" style="">
-                <input class="form-control" id="context" style="float: left;margin-left: 0px;" placeholder="Context">
+                <input class="form-control" id="object_context" style="float: left;margin-top: 5px;" placeholder="Object Context">
             </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="actor_context" style="float: left;margin-top: 5px;" placeholder="Actor Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="action_context" style="float: left;margin-top: 5px;" placeholder="Action Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="device_context" style="float: left;margin-top: 5px;" placeholder="Device Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="web_context" style="float: left;margin-top: 5px;" placeholder="Web Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="app_context" style="float: left;margin-top: 5px;" placeholder="App Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="geolocation_context" style="float: left;margin-top: 5px;" placeholder="Geolocation Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="page_context" style="float: left;margin-top: 5px;" placeholder="Page Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="screen_context" style="float: left;margin-top: 5px;" placeholder="Screen Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="attribution_context" style="float: left;margin-top: 5px;" placeholder="Attribution Context">
+            </div>
+            <div class="form-group" style="">
+                <input class="form-control" id="product_context" style="float: left;margin-top: 5px;" placeholder="Product Context">
+            </div>
+
             
 	</div>
     <button  id="submit" class="btn-primary col-sm-2 col-sm-offset-5" style="margin-top: 40px;" onclick="sendValue()">Submit
@@ -30,9 +61,22 @@
 </div>
 <script>
 
-function sendJson(user,actor,actions,platform,context) {
-        var formData = { "object_name": user, "actor_name": actor, "action_name":actions, 
-                         "platform_name":platform , "context":context
+function sendJson(user, actor, actions, platform, object_context, actor_context, action_context, device_context, web_context, app_context, geolocation_context, page_context, screen_context, attribution_context, product_context) {
+        var formData = { "object_name": user,
+                         "actor_name": actor,
+                         "action_name":actions, 
+                         "platform_name":platform ,
+                         "object_context":object_context,
+                         "actor_context": actor_context,
+                         "action_context": action_context,
+                         "device_context": device_context,
+                         "web_context": web_context,
+                         "app_context": app_context,
+                         "geolocation_context": geolocation_context,
+                         "page_context": page_context,
+                         "screen_context": screen_context,
+                         "attribution_context": attribution_context,
+                         "product_context": product_context
                         };
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/events/save', true);
@@ -54,8 +98,18 @@ function sendValue(){
     var actor=document.getElementById('actor').value;
     var actions=document.getElementById('actions').value;
     var platform=document.getElementById('platform').value;
-    var context=document.getElementById('context').value;
-    sendJson(user, actor, actions, platform, context);
+    var object_context=document.getElementById('object_context').value;
+    var actor_context=document.getElementById('actor_context').value;
+    var action_context=document.getElementById('action_context').value;
+    var device_context=document.getElementById('device_context').value;
+    var web_context=document.getElementById('web_context').value;
+    var app_context=document.getElementById('app_context').value;
+    var geolocation_context=document.getElementById('geolocation_context').value;
+    var page_context=document.getElementById('page_context').value;
+    var screen_context=document.getElementById('screen_context').value;
+    var attribution_context=document.getElementById('attribution_context').value;
+    var product_context=document.getElementById('product_context').value;
+    sendJson(user, actor, actions, platform, object_context, actor_context, action_context, device_context, web_context, app_context, geolocation_context, page_context, screen_context, attribution_context, product_context);
 }
 
 
